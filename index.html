@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Effervesce — Outcome of SODA & GET:ORG</title>
+  <meta name="description" content="Effervesce is a research outcome developed under the SODA and GET:ORG projects. It explores multi‑agent, LLM‑powered facilitation of group conversations in Slack and Microsoft Teams." />
+  <meta name="keywords" content="Effervesce, SODA, GET:ORG, group conversational AI, Slack bot, Teams bot, multi-agent, RAG, knowledge graph, turn-taking, AI, LLM" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Effervesce — Outcome of SODA & GET:ORG" />
+  <meta property="og:description" content="A research outcome from SODA and GET:ORG on multi‑agent conversational AI for digital teamwork." />
+  <meta property="og:image" content="./assets/og-image.png" />
+  <meta property="og:url" content="https://your-username.github.io/effervesce" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="./assets/favicon.svg" />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --panel: #111318;
+      --text: #e8eef2;
+      --sub: #aab6c3;
+      --brand: #7dd3fc;
+      --accent: #a78bfa;
+      --muted: #1a1f29;
+      --ring: rgba(125, 211, 252, 0.35);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui, sans-serif}
+    .container{max-width:1120px;margin:0 auto;padding:24px}
+    header{position:sticky;top:0;background:rgba(11,12,16,.9);backdrop-filter:saturate(140%) blur(8px);z-index:50}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .hero{padding:72px 0 32px;border-bottom:1px solid #202736;background:
+      radial-gradient(1000px 600px at 100% -10%, rgba(167,139,250,.15), transparent 70%),
+      radial-gradient(1000px 600px at 0% -10%, rgba(125,211,252,.12), transparent 70%);
+    }
+    .headline{font-size: clamp(28px, 4vw, 48px); font-weight:800;}
+    .sub{color:var(--sub);max-width:70ch}
+    a.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:14px;text-decoration:none;border:1px solid #263243}
+    a.btn.primary{background:linear-gradient(90deg,var(--brand),var(--accent));color:#0b0c10;border:0;font-weight:700}
+    section{padding:32px 0}
+    footer{padding:40px 0 60px;border-top:1px solid #202736;color:var(--sub)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="brand" href="#">Effervesce</a>
+        <div class="links">
+          <a href="#about">About</a>
+          <a href="#lineage">Lineage</a>
+          <a href="#approach">Research Approach</a>
+          <a href="#outcomes">Outcomes</a>
+          <a href="#team">Team</a>
+          <a href="#publications">Publications</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1 class="headline">Effervesce: an outcome of the SODA & GET:ORG research projects</h1>
+        <p class="sub">Developed collaboratively by <strong>Tampere University</strong>, <strong>University of Helsinki</strong>, and <strong>University of Jyväskylä</strong>, Effervesce investigates how multi‑agent LLMs can facilitate balanced participation, knowledge grounding, and decision capture in digital workspaces.</p>
+      </div>
+    </section>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2>About this research outcome</h2>
+        <p>Effervesce is a practical outcome emerging from ongoing academic work on AI‑mediated organizational communication. It demonstrates how multi‑agent LLMs can support multi‑party conversations in Slack and Microsoft Teams by coordinating facilitation, retrieval, and note‑taking.</p>
+      </div>
+    </section>
+
+    <section id="lineage">
+      <div class="container">
+        <h2>Lineage: projects & context</h2>
+        <p>Effervesce is developed under two research projects at the University of Helsinki and partner institutions:</p>
+        <ul>
+          <li><strong>SODA — Social Data Science and Digitalization</strong>: <a href="https://blogs.helsinki.fi/sodaproject/" target="_blank" rel="noopener">blogs.helsinki.fi/sodaproject/</a></li>
+          <li><strong>GET:ORG — Generative Technologies in Communicative Organizing</strong>: <a href="https://researchportal.helsinki.fi/en/projects/generative-technologies-in-communicative-organizing-getorg" target="_blank" rel="noopener">researchportal.helsinki.fi/.../getorg</a></li>
+        </ul>
+        <p>Effervesce is <em>not</em> a standalone product; it is a research outcome illustrating methods, tooling, and evaluation practices from these projects.</p>
+      </div>
+    </section>
+
+    <section id="approach">
+      <div class="container">
+        <h2>Research approach</h2>
+        <ul>
+          <li>Experimenting with multi‑agent orchestration to distribute conversational tasks.</li>
+          <li>Using retrieval‑augmented generation (RAG) and knowledge graphs to improve contextual awareness.</li>
+          <li>Developing methods for capturing and summarizing team discussions into structured outcomes.</li>
+          <li>Studying ethical, organizational, and social implications of AI‑mediated group communication.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="outcomes">
+      <div class="container">
+        <h2>Outcomes so far</h2>
+        <ul>
+          <li>Prototype agents for facilitation, retrieval‑augmented generation (RAG), and structured note‑taking.</li>
+          <li>Preliminary metrics for participation equity and outcome capture fidelity in group chat.</li>
+          <li>Design patterns for knowledge graph‑assisted context routing in team conversations.</li>
+          <li>Field insights from controlled deployments with research collaborators.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="container">
+        <h2>Team</h2>
+        <p>The outcome is developed collaboratively by researchers from Tampere University, University of Helsinki, and University of Jyväskylä, combining expertise in machine learning, organizational communication, and human‑computer interaction.</p>
+      </div>
+    </section>
+
+    <section id="publications">
+      <div class="container">
+        <h2>Publications & presentations</h2>
+        <ul>
+          <li><strong>FCAI AI Day 2024</strong>: Group Conversational AI: Introducing Effervesce (extended abstract).</li>
+          <li>Manuscripts in preparation on multi‑agent orchestration and KG‑assisted RAG in group chat.</li>
+          <li>Forthcoming comparative studies and open artifacts (code, redacted datasets, evaluation scripts).</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="y"></span> Effervesce — a research outcome under <a href="https://blogs.helsinki.fi/sodaproject/" target="_blank" rel="noopener">SODA</a> & <a href="https://researchportal.helsinki.fi/en/projects/generative-technologies-in-communicative-organizing-getorg" target="_blank" rel="noopener">GET:ORG</a>. Tampere University • University of Helsinki • University of Jyväskylä</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
