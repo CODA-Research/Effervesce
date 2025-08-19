@@ -4,131 +4,157 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Effervesce — Outcome of SODA & GET:ORG</title>
-  <meta name="description" content="Effervesce is a research outcome developed under the SODA and GET:ORG projects. It explores multi‑agent, LLM‑powered facilitation of group conversations in Slack and Microsoft Teams." />
-  <meta name="keywords" content="Effervesce, group chatbot, Slack bot, Teams bot, multi-agent, RAG, knowledge graph, turn-taking, AI, LLM, SODA, GET:ORG" />
+  <meta name="description" content="Effervesce is a research system developed under the SODA and GET:ORG projects. It explores multi-agent, LLM-powered facilitation of group conversations in digital platforms." />
+  <meta name="keywords" content="Effervesce, SODA, GET:ORG, group chatbot, Slack, Teams, multi-agent, RAG, knowledge graph, turn-taking, AI, LLM" />
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Effervesce — Outcome of SODA & GET:ORG" />
-  <meta property="og:description" content="A research outcome from SODA and GET:ORG on multi‑agent conversational AI for digital teamwork." />
-  <meta property="og:image" content="./images/Effervesce1.png" />
+  <meta property="og:title" content="Effervesce — Research Outcome (SODA & GET:ORG)" />
+  <meta property="og:description" content="A research outcome exploring multi-agent orchestration, RAG, and turn-taking for group chat." />
+  <meta property="og:image" content="./assets/og-image.png" />
   <meta property="og:url" content="https://your-username.github.io/effervesce" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="./assets/favicon.svg" />
   <style>
-    :root {
-      --bg: #ffffff;
-      --panel: #f9fafb;
-      --text: #111827;
-      --sub: #4b5563;
-      --brand: #2563eb; /* blue-600 */
-      --accent: #7c3aed; /* violet-600 */
-      --muted: #f3f4f6;
-      --ring: rgba(37, 99, 235, 0.25);
+    :root{
+      --bg:#ffffff;--panel:#f8fafc;--text:#0b1220;--sub:#495266;
+      --brand:#0ea5e9;--accent:#7c3aed;--ok:#16a34a;--warn:#dc2626;
+      --muted:#eef2f7;--ring:rgba(14,165,233,.35)
     }
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui, sans-serif}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
-    header{position:sticky;top:0;background:#fff;border-bottom:1px solid #e5e7eb;z-index:50}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    .container{max-width:1120px;margin:0 auto;padding:24px}
+    header{position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,0));backdrop-filter:saturate(140%) blur(8px);z-index:50;border-bottom:1px solid #e5e7eb}
     nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-    .links a{color:var(--sub);text-decoration:none;padding:10px 12px;border-radius:8px}
-    .links a:hover{background:var(--muted);color:var(--text)}
-    h1,h2,h3{margin-top:0}
-    h1{font-size:2.2rem}
-    h2{font-size:1.5rem;margin-bottom:12px}
-    section{padding:40px 0}
-    .hero{background:linear-gradient(90deg, #eff6ff, #f5f3ff);padding:60px 0}
-    .sub{color:var(--sub);max-width:70ch}
-    .img-block{margin:24px 0;display:flex;justify-content:center}
-    .img-block img{max-width:100%;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.08)}
-    footer{padding:30px 0;background:#f9fafb;border-top:1px solid #e5e7eb;color:var(--sub);text-align:center}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.2px}
+    .brand svg{width:28px;height:28px}
+    .hero{padding:60px 0 24px;background:
+      radial-gradient(800px 500px at 100% -10%, rgba(14,165,233,.10), transparent 70%),
+      radial-gradient(800px 500px at 0% -10%, rgba(124,58,237,.08), transparent 70%)}
+    .headline{font-size:clamp(28px,4vw,48px);line-height:1.1;letter-spacing:-.02em;font-weight:800}
+    .sub{color:var(--sub);max-width:72ch}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    a.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:14px;text-decoration:none;border:1px solid #e5e7eb}
+    a.btn.primary{background:linear-gradient(90deg,var(--brand),var(--accent));color:#fff;border:0;font-weight:700}
+    a.btn.ghost{color:var(--text)}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:var(--muted);padding:8px 12px;border-radius:999px;color:var(--sub);border:1px solid #e5e7eb}
+    .grid{display:grid;gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    @media(max-width:900px){.grid.cols-3{grid-template-columns:1fr}}
+    .card{background:var(--panel);border:1px solid #e5e7eb;border-radius:18px;padding:18px}
+    .card h3{margin:0 0 6px}
+    .code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;background:#fff;border:1px solid #e5e7eb;padding:12px 14px;border-radius:12px;overflow:auto}
+    section{padding:32px 0}
+    .tiny{font-size:12px;color:var(--sub)}
+    footer{padding:40px 0 60px;border-top:1px solid #e5e7eb;color:var(--sub)}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--muted);border:1px solid #e5e7eb;text-decoration:none;color:inherit}
+    .two{display:grid;gap:18px;grid-template-columns:1.2fr .8fr}
+    @media(max-width:900px){.two{grid-template-columns:1fr}}
+    .inline-list{display:flex;gap:10px;flex-wrap:wrap}
+    img.diag{width:100%;border-radius:12px;border:1px solid #e5e7eb;background:#fff}
+    .toc{padding-top:8px;padding-bottom:8px}
   </style>
 </head>
 <body>
   <header>
     <div class="container">
       <nav>
-        <div class="brand">Effervesce</div>
-        <div class="links">
-          <a href="#about">About</a>
-          <a href="#lineage">Lineage</a>
-          <a href="#versions">Versions</a>
-          <a href="#approach">Approach</a>
-          <a href="#outcomes">Outcomes</a>
-          <a href="#publications">Publications</a>
-        </div>
+        <a class="brand" href="#">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--brand)"/>
+                <stop offset="100%" stop-color="var(--accent)"/>
+              </linearGradient>
+            </defs>
+            <path d="M12 2c5.523 0 10 4.477 10 10 0 2.43-.867 4.66-2.31 6.39-.36.43-1 .49-1.44.12-2.22-1.86-4.72-2.84-6.25-2.84s-4.03.98-6.25 2.84c-.44.37-1.08.31-1.44-.12A9.98 9.98 0 0 1 2 12C2 6.477 6.477 2 12 2Z" stroke="url(#g)" stroke-width="1.2"/>
+            <circle cx="12" cy="12" r="2.8" fill="url(#g)"/>
+          </svg>
+          Effervesce
+        </a>
+        <!-- no menu -->
       </nav>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container">
-        <h1>Effervesce: an outcome of the <a href="https://blogs.helsinki.fi/sodaproject/" target="_blank">SODA</a> & <a href="https://researchportal.helsinki.fi/en/projects/generative-technologies-in-communicative-organizing-getorg" target="_blank">GET:ORG</a> research projects</h1>
-        <p class="sub">Developed collaboratively by Tampere University, University of Helsinki, and University of Jyväskylä, Effervesce investigates how multi‑agent LLMs can facilitate balanced participation, knowledge grounding, and decision capture in digital workspaces.</p>
+      <div class="container two">
+        <div>
+          <div class="badge">Research outcome • SODA & GET:ORG • Tampere University • University of Helsinki • University of Jyväskylä</div>
+          <h1 class="headline">Effervesce: an outcome of the SODA & GET:ORG research projects</h1>
+          <p class="sub">Developed collaboratively by <strong>Tampere University</strong>, <strong>University of Helsinki</strong>, and <strong>University of Jyväskylä</strong>, Effervesce investigates how multi-agent LLMs can facilitate balanced participation, knowledge grounding, and decision capture in digital workspaces.</p>
+          <div class="cta">
+            <a class="btn primary" href="#publications">Read publications</a>
+            <a class="btn ghost" href="#versions">See versions & roadmap</a>
+            <a class="btn ghost" href="https://blogs.helsinki.fi/sodaproject/" target="_blank" rel="noopener">SODA</a>
+            <a class="btn ghost" href="https://researchportal.helsinki.fi/en/projects/generative-technologies-in-communicative-organizing-getorg" target="_blank" rel="noopener">GET:ORG</a>
+          </div>
+        </div>
+        <div class="card" aria-label="Goals">
+          <pre class="code">Research goals
+• Model turn-taking & participation in group chat
+• Measure outcome capture (decisions, tasks) fidelity
+• Evaluate RAG + knowledge-graph grounding under tool calls
+• Study orchestration of specialized agents
+• Release open datasets, code, and benchmarks</pre>
+          <div class="inline-list" style="margin-top:10px">
+            <span class="pill">Methodology</span>
+            <span class="pill">Evaluation</span>
+            <span class="pill">RAG + KG</span>
+            <span class="pill">Multi-agent</span>
+            <span class="pill">Open Science</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Minimal quick links instead of a nav menu -->
+    <section class="toc">
+      <div class="container" style="text-align:center">
+        <a class="pill" href="#versions">Versions</a>
+        <a class="pill" href="#publications">Publications</a>
+        <a class="pill" href="#team">Contact</a>
       </div>
     </section>
 
     <section id="about">
       <div class="container">
         <h2>About this research outcome</h2>
-        <p>Effervesce is a tangible outcome emerging from research on AI‑mediated organizational communication. It demonstrates how multi‑agent LLMs can support multi‑party conversations in Slack and Microsoft Teams by coordinating facilitation, retrieval, and note‑taking.</p>
+        <p>Effervesce demonstrates how multi-agent LLMs can support multi-party conversations in digital platforms by coordinating facilitation, retrieval, and note-taking. It is not a standalone product; it is an artifact that embodies methods and evaluation practices developed in SODA and GET:ORG.</p>
       </div>
     </section>
 
     <section id="lineage">
       <div class="container">
         <h2>Lineage: projects & context</h2>
+        <p>Developed under two research projects at the University of Helsinki and partner institutions:</p>
         <ul>
-          <li><strong>SODA — Social Data Science and Digitalization</strong>: <a href="https://blogs.helsinki.fi/sodaproject/" target="_blank">blogs.helsinki.fi/sodaproject/</a></li>
-          <li><strong>GET:ORG — Generative Technologies in Communicative Organizing</strong>: <a href="https://researchportal.helsinki.fi/en/projects/generative-technologies-in-communicative-organizing-getorg" target="_blank">researchportal.helsinki.fi/.../getorg</a></li>
+          <li><strong>SODA — Social Data Science and Digitalization</strong>: <a href="https://blogs.helsinki.fi/sodaproject/" target="_blank" rel="noopener">blogs.helsinki.fi/sodaproject/</a></li>
+          <li><strong>GET:ORG — Generative Technologies in Communicative Organizing</strong>: <a href="https://researchportal.helsinki.fi/en/projects/generative-technologies-in-communicative-organizing-getorg" target="_blank" rel="noopener">researchportal.helsinki.fi/.../getorg</a></li>
         </ul>
-        <p>Effervesce is <em>not</em> a product; it is a research outcome illustrating methods, tooling, and evaluation practices from these projects.</p>
-      </div>
-    </section>
-
-    <section id="versions">
-      <div class="container">
-        <h2>Effervesce versions</h2>
-        <p>The work has advanced in phases, from initial prototypes to broader ambitions:</p>
-        <div class="img-block">
-          <img src="./images/Effervesce1.drawio.png" alt="Effervesce 1.0 diagram" />
-        </div>
-        <h3>Effervesce 1.0</h3>
-        <p>A first version demonstrating Slack integration, webhook processing, and response generation guided by LLMs.</p>
-
-        <div class="img-block">
-          <img src="./images/Effervesce2.drawio.png" alt="Effervesce 2.0 diagram" />
-        </div>
-        <h3>Effervesce 2.0</h3>
-        <p>Extended with multiple agents for sensing, deciding, and communicating, using vector databases, web search, and tool APIs.</p>
-
-        <div class="img-block">
-          <img src="./images/Effervesce3.drawio.png" alt="Future communicative multi-agent vision" />
-        </div>
-        <h3>Towards a communicative multi‑agent framework</h3>
-        <p>The ongoing plan is to generalize into a broader communicative multi‑agent system for digital teamwork — beyond Slack/Teams, towards reusable architectures for organizational communication.</p>
       </div>
     </section>
 
     <section id="approach">
       <div class="container">
         <h2>Research approach</h2>
-        <p>We explore multi‑agent orchestration, retrieval‑augmented dialogue, and organizational memory through knowledge graphs. Evaluation involves workshops, user studies, and benchmarks for turn‑taking, participation equity, and decision fidelity.</p>
-      </div>
-    </section>
-
-    <section id="outcomes">
-      <div class="container">
-        <h2>Outcomes so far</h2>
-        <ul>
-          <li>Prototype agents for facilitation, retrieval‑augmented generation (RAG), and structured note‑taking.</li>
-          <li>Preliminary metrics for participation equity and outcome capture fidelity in group chat.</li>
-          <li>Design patterns for knowledge graph‑assisted context routing in team conversations.</li>
-          <li>Field insights from controlled deployments with research collaborators.</li>
-        </ul>
+        <div class="grid cols-3">
+          <div class="card">
+            <h3>Multi-agent orchestration</h3>
+            <p>Specialized agents coordinate via messaging protocols and role constraints. We analyze hand-offs, failure modes, and cost/latency.</p>
+          </div>
+          <div class="card">
+            <h3>Retrieval & knowledge graphs</h3>
+            <p>RAG over channel context and document stores, augmented by lightweight expertise graphs to reduce hallucination and improve routing.</p>
+          </div>
+          <div class="card">
+            <h3>Evaluation</h3>
+            <p>Human-in-the-loop studies, task-based benchmarks, participation equity metrics, and outcome capture precision/recall.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -138,29 +164,41 @@
         <div class="grid cols-3">
           <div class="card">
             <h3>Effervesce 1.0</h3>
-            <p>Single‑agent core with tool calling and RAG over channel context; meeting summaries and action extraction.</p>
+            <p>Single-agent core with tool calling and RAG over channel context; meeting summaries and action extraction.</p>
             <figure>
-              <img src="./images/Effervesce1.drawio.png" alt="Effervesce 1.0 architecture diagram" style="width:100%; border-radius:12px; border:1px solid #e5e7eb; background:#fff"/>
-              <figcaption class="tiny">Early pipeline from Slack → log → LLM → response.</figcaption>
+              <img class="diag" src="./images/Effervesce1.drawio.png" alt="Effervesce 1.0 architecture diagram"/>
+              <figcaption class="tiny">Pipeline from Slack → log → LLM → response.</figcaption>
             </figure>
           </div>
           <div class="card">
             <h3>Effervesce 2.0</h3>
-            <p>Multi‑agent prototype: intent recognition, turn‑taking, context agent, response agent, specialized schedulers; orchestration via a control bus.</p>
+            <p>Multi-agent prototype: intent recognition, turn-taking, context agent, response agent, specialized schedulers; orchestration via a control bus.</p>
             <figure>
-              <img src="./images/Effervesce2.drawio.png" alt="Effervesce 2.0 multi‑agent diagram" style="width:100%; border-radius:12px; border:1px solid #e5e7eb; background:#fff"/>
+              <img class="diag" src="./images/Effervesce2.drawio.png" alt="Effervesce 2.0 multi-agent diagram"/>
               <figcaption class="tiny">Agents for sensing, deciding, communicating.</figcaption>
             </figure>
           </div>
           <div class="card">
-            <h3>Toward a general communicative multi‑agent system</h3>
+            <h3>Toward a general communicative multi-agent system</h3>
             <p>Planned extension for broader organizational communication: reusable agent roles, policy guardrails, and pluggable tools/APIs across platforms.</p>
             <figure>
-              <img src="./images/Effervesce3.drawio.png" alt="General communicative multi‑agent plan" style="width:100%; border-radius:12px; border:1px solid #e5e7eb; background:#fff"/>
-              <figcaption class="tiny">Roadmap toward platform‑agnostic, policy‑aware agents.</figcaption>
+              <img class="diag" src="./images/Effervesce3.drawio.png" alt="General communicative multi-agent plan"/>
+              <figcaption class="tiny">Roadmap toward platform-agnostic, policy-aware agents.</figcaption>
             </figure>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="outcomes">
+      <div class="container">
+        <h2>Outcomes so far</h2>
+        <ul>
+          <li>Prototype agents for facilitation, retrieval-augmented generation (RAG), and structured note-taking.</li>
+          <li>Preliminary metrics for participation equity and outcome capture fidelity in group chat.</li>
+          <li>Design patterns for knowledge graph-assisted context routing in team conversations.</li>
+          <li>Field insights from controlled deployments with research collaborators.</li>
+        </ul>
       </div>
     </section>
 
@@ -168,22 +206,75 @@
       <div class="container">
         <h2>Publications & presentations</h2>
         <ul>
-          <li><strong>FCAI AI Day 2024</strong>: Group Conversational AI: Introducing Effervesce (extended abstract).</li>
-          <li>Manuscripts in preparation on multi‑agent orchestration and KG‑assisted RAG in group chat.</li>
-          <li>Forthcoming comparative studies and open artifacts (code, redacted datasets, evaluation scripts).</li>
+          <li>
+            <a href="https://aclanthology.org/2025.nlp4dh-1.43/" target="_blank" rel="noopener">Team Conversational AI: Introducing Effervesce</a>.
+            In <em>NLP4DH 2025</em>, Association for Computational Linguistics.
+          </li>
+          <li>
+            <a href="https://journals.aom.org/doi/abs/10.5465/AMPROC.2025.24779abstract" target="_blank" rel="noopener">From Tool to Team Member: Communicative AI’s (Perceived) Agency in a Teamwork Setting</a>.
+            <em>Academy of Management Proceedings</em>, 2025, Vol 2025(1), p. 24779.
+          </li>
         </ul>
+        <p class="tiny">Links point to the official venues.</p>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="container">
+        <h2>Team & collaboration</h2>
+        <p>Interested in collaborating on studies, datasets, or deployments? Get in touch.</p>
+        <div class="card">
+          <form action="https://formspree.io/f/your-form-id" method="POST">
+            <label>Name<br><input required name="name" placeholder="Your name" /></label>
+            <br>
+            <label>Email<br><input required type="email" name="email" placeholder="you@example.com" /></label>
+            <br>
+            <label>Message<br><textarea required name="message" placeholder="Collaboration idea (study site, dataset sharing, co-authorship, etc.)"></textarea></label>
+            <br>
+            <button class="btn primary" type="submit">Contact us</button>
+            <span class="tiny">Academic inquiries: effervesce-research@yourdomain</span>
+          </form>
+        </div>
+        <p class="tiny" style="margin-top:10px">Ethics: Institutional review, informed consent, and data minimization guide all studies.</p>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="container">
-      <p>© <span id="y"></span> Effervesce — a research outcome under <a href="https://blogs.helsinki.fi/sodaproject/" target="_blank">SODA</a> & <a href="https://researchportal.helsinki.fi/en/projects/generative-technologies-in-communicative-organizing-getorg" target="_blank">GET:ORG</a>. Tampere University • University of Helsinki • University of Jyväskylä</p>
+      <p><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-green.svg"></p>
+      <p>© <span id="y"></span> Effervesce — a research outcome under <a href="https://blogs.helsinki.fi/sodaproject/" target="_blank" rel="noopener">SODA</a> & <a href="https://researchportal.helsinki.fi/en/projects/generative-technologies-in-communicative-organizing-getorg" target="_blank" rel="noopener">GET:ORG</a>. Tampere University • University of Helsinki • University of Jyväskylä</p>
     </div>
   </footer>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Minimal form styles (kept separate so it loads after)
+    const style = document.createElement('style');
+    style.textContent = `
+      form { display:grid; gap:10px; max-width:520px }
+      input, textarea { width:100%; padding:12px 14px; color:var(--text); background:var(--bg); border:1px solid #e5e7eb; border-radius:12px; outline: none; }
+      input:focus, textarea:focus { box-shadow: 0 0 0 4px var(--ring); border-color: var(--brand); }
+      textarea { min-height:120px; resize: vertical; }
+      h2 { font-size: clamp(22px, 3.2vw, 32px); margin: 0 0 12px; }
+      ul { margin: 0; padding-left: 18px; }
+    `;
+    document.head.appendChild(style);
+  </script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Effervesce",
+    "applicationCategory": "Chatbot",
+    "operatingSystem": "Slack, Microsoft Teams",
+    "description": "A multi-agent research outcome that facilitates team discussions, retrieves knowledge, and records outcomes.",
+    "url": "https://your-username.github.io/effervesce",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"EUR"}
+  }
   </script>
 </body>
 </html>
